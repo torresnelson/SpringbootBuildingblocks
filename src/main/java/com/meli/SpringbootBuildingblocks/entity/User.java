@@ -1,4 +1,4 @@
-package com.meli.SpringbootBuildingblocks.model;
+package com.meli.SpringbootBuildingblocks.entity;
 
 import lombok.Data;
 import javax.persistence.*;

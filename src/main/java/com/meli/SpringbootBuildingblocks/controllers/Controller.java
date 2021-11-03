@@ -1,4 +1,4 @@
-package com.meli.SpringbootBuildingblocks.controller;
+package com.meli.SpringbootBuildingblocks.controllers;
 
 import com.meli.SpringbootBuildingblocks.dto.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;

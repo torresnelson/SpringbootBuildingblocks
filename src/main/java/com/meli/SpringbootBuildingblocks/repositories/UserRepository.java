@@ -1,4 +1,4 @@
-package com.meli.SpringbootBuildingblocks.repository;
+package com.meli.SpringbootBuildingblocks.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

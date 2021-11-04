@@ -1,6 +1,7 @@
 package com.meli.SpringbootBuildingblocks.controllers;
 
 import com.meli.SpringbootBuildingblocks.entities.User;
+import com.meli.SpringbootBuildingblocks.exceptions.UserAlreadyExistsException;
 import com.meli.SpringbootBuildingblocks.exceptions.UserNotFoundException;
 import com.meli.SpringbootBuildingblocks.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,11 @@ public class UserController {
 
     @PostMapping("/users")
     public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+        try {
+            return userService.createUser(user);
+        } catch (UserAlreadyExistsException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+        }
     }
 
     @GetMapping("/users/{id}")

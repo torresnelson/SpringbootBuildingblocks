@@ -1,6 +1,7 @@
 package com.meli.SpringbootBuildingblocks.services;
 
 import com.meli.SpringbootBuildingblocks.entities.User;
+import com.meli.SpringbootBuildingblocks.exceptions.UserAlreadyExistsException;
 import com.meli.SpringbootBuildingblocks.exceptions.UserNotFoundException;
 import com.meli.SpringbootBuildingblocks.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User createUser(User user) {
+    public User createUser(User user) throws UserAlreadyExistsException {
+        User existingUser = userRepository.findByUsername(user.getUsername());
+        if (existingUser != null) {
+            throw new UserAlreadyExistsException("User already exist.");
+        }
         return userRepository.save(user);
     }
 

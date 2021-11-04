@@ -1,6 +1,7 @@
 package com.meli.SpringbootBuildingblocks.services;
 
 import com.meli.SpringbootBuildingblocks.entities.User;
+import com.meli.SpringbootBuildingblocks.exceptions.UserNotFoundException;
 import com.meli.SpringbootBuildingblocks.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+    public Optional<User> getUserById(Long id) throws UserNotFoundException {
+        Optional<User> user = userRepository.findById(id);
+        if (!user.isPresent()) {
+            throw new UserNotFoundException("User Not found in user repository");
+        }
+        return user;
     }
 
     public User updateUserById(Long id, User user) {

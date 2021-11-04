@@ -1,9 +1,12 @@
 package com.meli.SpringbootBuildingblocks.controllers;
 
 import com.meli.SpringbootBuildingblocks.entities.User;
+import com.meli.SpringbootBuildingblocks.exceptions.UserNotFoundException;
 import com.meli.SpringbootBuildingblocks.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +29,11 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     public Optional<User> getUserById(@PathVariable("id") Long id) {
-        return userService.getUserById(id);
+        try {
+            return userService.getUserById(id);
+        } catch(UserNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+        }
     }
 
     @PutMapping("/users/{id}")

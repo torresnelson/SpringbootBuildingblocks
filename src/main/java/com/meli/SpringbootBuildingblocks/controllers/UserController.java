@@ -18,51 +18,51 @@ import java.util.Optional;
 @RestController
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+  @Autowired
+  private UserService userService;
 
-    @GetMapping("/users")
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
-    }
+  @GetMapping("/users")
+  public List<User> getAllUsers() {
+    return userService.getAllUsers();
+  }
 
-    @PostMapping("/users")
-    public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder builder) {
-        try {
-            userService.createUser(user);
-            HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(builder.path("/users/{id}").buildAndExpand(user.getId()).toUri());
-            return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-        } catch (UserAlreadyExistsException ex) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
-        }
+  @PostMapping("/users")
+  public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder builder) {
+    try {
+      userService.createUser(user);
+      HttpHeaders headers = new HttpHeaders();
+      headers.setLocation(builder.path("/users/{id}").buildAndExpand(user.getId()).toUri());
+      return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    } catch (UserAlreadyExistsException ex) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
+  }
 
-    @GetMapping("/users/{id}")
-    public Optional<User> getUserById(@PathVariable("id") Long id) {
-        try {
-            return userService.getUserById(id);
-        } catch(UserNotFoundException ex) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
-        }
+  @GetMapping("/users/{id}")
+  public Optional<User> getUserById(@PathVariable("id") Long id) {
+    try {
+      return userService.getUserById(id);
+    } catch (UserNotFoundException ex) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
     }
+  }
 
-    @PutMapping("/users/{id}")
-    public User updateUserById(@PathVariable("id") Long id, @RequestBody User user) {
-        try {
-            return userService.updateUserById(id, user);
-        } catch (UserNotFoundException ex) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
-        }
+  @PutMapping("/users/{id}")
+  public User updateUserById(@PathVariable("id") Long id, @RequestBody User user) {
+    try {
+      return userService.updateUserById(id, user);
+    } catch (UserNotFoundException ex) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
+  }
 
-    @DeleteMapping("/users/{id}")
-    public void deleteUserById(@PathVariable("id") Long id) {
-        userService.deleteUserById(id);
-    }
+  @DeleteMapping("/users/{id}")
+  public void deleteUserById(@PathVariable("id") Long id) {
+    userService.deleteUserById(id);
+  }
 
-    @GetMapping("/users/byusername/{username}")
-    public User getUserByUsername(@PathVariable("username") String username) {
-        return userService.getUserByUsername(username);
-    }
+  @GetMapping("/users/byusername/{username}")
+  public User getUserByUsername(@PathVariable("username") String username) {
+    return userService.getUserByUsername(username);
+  }
 }

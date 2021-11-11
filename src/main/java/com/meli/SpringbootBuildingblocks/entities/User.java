@@ -1,5 +1,7 @@
 package com.meli.SpringbootBuildingblocks.entities;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,9 +23,11 @@ public class User {
   @GeneratedValue
   private Long id;
 
+  @NotEmpty(message = "Username is Mandatory field, please provide username")
   @Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
   private String username;
 
+  @Size(min = 2, message = "Firstname must be atleast 2 character")
   @Column(name = "FIRST_NAME", length = 50, nullable = false)
   private String firstname;
 

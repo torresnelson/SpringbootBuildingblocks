@@ -29,14 +29,15 @@ public class UserController {
   }
 
   @PostMapping("/users")
-  public ResponseEntity<Void> createUser(@Valid @RequestBody User user, UriComponentsBuilder builder) {
+  public ResponseEntity<Void> createUser(@Valid @RequestBody User user,
+      UriComponentsBuilder builder) {
     try {
       userService.createUser(user);
       HttpHeaders headers = new HttpHeaders();
       headers.setLocation(builder.path("/users/{id}").buildAndExpand(user.getId()).toUri());
       return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-    } catch (UserAlreadyExistsException ex) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+    } catch (UserAlreadyExistsException e) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
     }
   }
 
@@ -44,8 +45,8 @@ public class UserController {
   public Optional<User> getUserById(@PathVariable("id") Long id) {
     try {
       return userService.getUserById(id);
-    } catch (UserNotFoundException ex) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+    } catch (UserNotFoundException e) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
     }
   }
 
@@ -53,8 +54,8 @@ public class UserController {
   public User updateUserById(@PathVariable("id") Long id, @RequestBody User user) {
     try {
       return userService.updateUserById(id, user);
-    } catch (UserNotFoundException ex) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+    } catch (UserNotFoundException e) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
     }
   }
 

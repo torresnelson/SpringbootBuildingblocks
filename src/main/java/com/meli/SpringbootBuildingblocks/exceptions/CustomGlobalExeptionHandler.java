@@ -1,9 +1,13 @@
 package com.meli.SpringbootBuildingblocks.exceptions;
 
 import java.util.Date;
+import java.util.Set;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -19,5 +23,16 @@ public class CustomGlobalExeptionHandler extends ResponseEntityExceptionHandler 
     CustomErrorDetails customErrorDetails = new CustomErrorDetails(new Date(),
         "From MethodArgumentNotValid Exception in Global handler exception", ex.getMessage());
     return new ResponseEntity<>(customErrorDetails, HttpStatus.BAD_REQUEST);
+  }
+
+  //HttpRequestMethodNotSupported
+  @Override
+  protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
+      HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status,
+      WebRequest request) {
+    CustomErrorDetails customErrorDetails = new CustomErrorDetails(new Date(),
+        "From HttpRequestMethodNotSupported Exception in Global handler exception",
+        ex.getMessage());
+    return new ResponseEntity<>(customErrorDetails, HttpStatus.METHOD_NOT_ALLOWED);
   }
 }

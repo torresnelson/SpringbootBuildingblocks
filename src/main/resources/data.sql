@@ -1,3 +1,4 @@
+/*
 -- Verity colum and insert queries
 insert into user
 values (101, 'nelson.torres@mercadolibre.com', 'Nelson', 'Torres', 'admin', 'ssn101', 'neltorres');
@@ -21,6 +22,7 @@ insert into orders
 values (2005, 'order 2', 103);
 insert into orders
 values (2006, 'order 3', 104);
+*/
 /*
 -- Verify foreing key name DB before creating queries
 insert into orders (orderid, orderdescription, user_user_id)

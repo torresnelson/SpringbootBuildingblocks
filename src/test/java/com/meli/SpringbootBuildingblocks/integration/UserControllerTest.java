@@ -65,7 +65,6 @@ public class UserControllerTest {
           .contentType(MediaType.APPLICATION_JSON)
           .content(mapper.writeValueAsString(UserTestUtils.generateUser())));
     }
-
     this.mockMvc.perform(get(USER_ENDPOINT)
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())

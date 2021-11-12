@@ -68,7 +68,7 @@ public class UserController {
     userService.deleteUserById(id);
   }
 
-  @GetMapping("/users/byusername/{username}")
+  @GetMapping("/users/by-username/{username}")
   public User getUserByUsername(@PathVariable("username") String username)
       throws UsernameNotFoundException {
     User user = userService.getUserByUsername(username);

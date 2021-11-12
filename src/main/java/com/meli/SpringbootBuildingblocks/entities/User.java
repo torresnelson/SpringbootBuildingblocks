@@ -1,5 +1,8 @@
 package com.meli.SpringbootBuildingblocks.entities;
 
+import java.util.List;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import lombok.Getter;
@@ -42,6 +45,9 @@ public class User {
 
   @Column(name = "SSN", length = 50, nullable = false, unique = true)
   private String ssn;
+
+  @OneToMany(mappedBy = "user")
+  private List<Order> orders;
 
   // No Argument Constructor
   public User() {

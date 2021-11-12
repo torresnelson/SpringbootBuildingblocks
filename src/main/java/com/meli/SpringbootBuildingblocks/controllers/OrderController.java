@@ -2,19 +2,15 @@ package com.meli.SpringbootBuildingblocks.controllers;
 
 import com.meli.SpringbootBuildingblocks.entities.Order;
 import com.meli.SpringbootBuildingblocks.entities.User;
-import com.meli.SpringbootBuildingblocks.exceptions.UserAlreadyExistsException;
+import com.meli.SpringbootBuildingblocks.exceptions.OrderNotFoundException;
 import com.meli.SpringbootBuildingblocks.exceptions.UserNotFoundException;
 import com.meli.SpringbootBuildingblocks.repositories.OrderRepository;
 import com.meli.SpringbootBuildingblocks.repositories.UserRepository;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/users")
@@ -58,6 +52,17 @@ public class OrderController {
     User user = optionalUser.get();
     order.setUser(user);
     orderRepository.saveAndFlush(order);
+    return new ResponseEntity<>(order, HttpStatus.OK);
+  }
+
+  @GetMapping("/{userid}/orders/{orderid}")
+  public ResponseEntity<Order> getOrderByOrderId(@PathVariable Long orderid)
+      throws OrderNotFoundException {
+    Optional<Order> optionalOrder = orderRepository.findById(orderid);
+    if (!optionalOrder.isPresent()) {
+      throw new OrderNotFoundException("Order not found");
+    }
+    Order order = optionalOrder.get();
     return new ResponseEntity<>(order, HttpStatus.OK);
   }
 }

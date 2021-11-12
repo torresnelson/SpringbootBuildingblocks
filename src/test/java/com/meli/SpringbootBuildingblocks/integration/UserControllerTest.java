@@ -1,7 +1,10 @@
 package com.meli.SpringbootBuildingblocks.integration;
 
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,15 +27,15 @@ import org.springframework.test.web.servlet.MockMvc;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class UserControllerTest {
 
-  private static final String USER_ENDPOINT = "/udemy-course/api/users";
+  private static final String USER_ENDPOINT = "/users";
 
-  private static final String USER_ENDPOINT_BY_ID = "/udemy-course/api/users/{id}";
+  private static final String USER_ENDPOINT_BY_ID = "/users/{id}";
 
-  private static final String USER_ENDPOINT_BY_USERNAME = "/udemy-course/api/users/by-username/{username}";
+  private static final String USER_ENDPOINT_BY_USERNAME = "/users/by-username/{username}";
 
-  private static final Integer ENTRY_COUNT = 200;
+  private static final Integer ENTRY_COUNT = 100;
 
-  private static final String LENGTH = "$.length()";
+  private static final String RESPONSE_LENGTH = "$.length()";
 
   private static ObjectMapper mapper;
 
@@ -44,7 +47,6 @@ public class UserControllerTest {
     mapper = new ObjectMapper();
   }
 
-
   @SneakyThrows
   @Test
   void createUserSuccessfullyTest() {
@@ -54,4 +56,20 @@ public class UserControllerTest {
         .content(jsonPayload))
         .andExpect(status().isCreated());
   }
+
+  @SneakyThrows
+  @Test
+  void listAllUserTest() {
+    for (int i = 0; i < ENTRY_COUNT; i++) {
+      this.mockMvc.perform(post(USER_ENDPOINT)
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(mapper.writeValueAsString(UserTestUtils.generateUser())));
+    }
+    this.mockMvc.perform(get(USER_ENDPOINT)
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andDo(print())
+        .andExpect(jsonPath(RESPONSE_LENGTH).value(ENTRY_COUNT));
+  }
+
 }

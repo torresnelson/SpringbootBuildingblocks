@@ -8,12 +8,14 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class UserDetails {
-    private String firstname;
-    private String lastname;
-    private String city;
 
-    @Override
-    public String toString() {
-        return "UserDetails [firstname = " + firstname + ", lastname = " + lastname + ", City = " + city +"]" ;
-    }
+  private String firstname;
+  private String lastname;
+  private String city;
+
+  @Override
+  public String toString() {
+    return "UserDetails [firstname = " + firstname + ", lastname = " + lastname + ", City = " + city
+        + "]";
+  }
 }

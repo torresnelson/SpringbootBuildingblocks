@@ -6,6 +6,7 @@ import com.meli.SpringbootBuildingblocks.exceptions.OrderNotFoundException;
 import com.meli.SpringbootBuildingblocks.exceptions.UserNotFoundException;
 import com.meli.SpringbootBuildingblocks.repositories.OrderRepository;
 import com.meli.SpringbootBuildingblocks.repositories.UserRepository;
+import com.meli.SpringbootBuildingblocks.services.OrderService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,50 +20,42 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/users")
 public class OrderController {
 
   @Autowired
-  private UserRepository userRepository;
-
-  @Autowired
-  private OrderRepository orderRepository;
+  private OrderService orderService;
 
   @GetMapping("/{userid}/orders")
-  public List<Order> getAllOrders(@PathVariable Long userid) throws UserNotFoundException {
-    Optional<User> user = userRepository.findById(userid);
-    if (!user.isPresent()) {
-      throw new UserNotFoundException("User not found");
+  public List<Order> getAllOrders(@PathVariable Long userid) {
+    try {
+      return orderService.getAllUsers(userid);
+    } catch (UserNotFoundException e) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
     }
-    return user.get().getOrders();
   }
 
   @PostMapping("/{userid}/orders")
   public ResponseEntity<Order> createOrder(@Valid @PathVariable Long userid,
-      @RequestBody Order order)
-      throws UserNotFoundException {
-    List<Order> orders = new ArrayList<>();
-    orders.add(order);
-    Optional<User> optionalUser = userRepository.findById(userid);
-    if (!optionalUser.isPresent()) {
-      throw new UserNotFoundException("User not found.");
+      @RequestBody Order order) {
+    try {
+      orderService.createOrder(userid, order);
+      return new ResponseEntity<>(order, HttpStatus.OK);
+    } catch (UserNotFoundException e) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
     }
-    User user = optionalUser.get();
-    order.setUser(user);
-    orderRepository.saveAndFlush(order);
-    return new ResponseEntity<>(order, HttpStatus.OK);
   }
 
   @GetMapping("/{userid}/orders/{orderid}")
-  public ResponseEntity<Order> getOrderByOrderId(@PathVariable Long orderid)
-      throws OrderNotFoundException {
-    Optional<Order> optionalOrder = orderRepository.findById(orderid);
-    if (!optionalOrder.isPresent()) {
-      throw new OrderNotFoundException("Order not found");
+  public ResponseEntity<Order> getOrderByOrderId(@PathVariable Long orderid) {
+    try {
+      Order order = orderService.getOrderById(orderid);
+      return new ResponseEntity<>(order, HttpStatus.OK);
+    } catch (OrderNotFoundException e) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
     }
-    Order order = optionalOrder.get();
-    return new ResponseEntity<>(order, HttpStatus.OK);
   }
 }

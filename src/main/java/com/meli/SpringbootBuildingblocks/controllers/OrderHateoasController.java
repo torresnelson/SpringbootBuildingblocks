@@ -1,13 +1,10 @@
 package com.meli.SpringbootBuildingblocks.controllers;
 
 import com.meli.SpringbootBuildingblocks.entities.Order;
-import com.meli.SpringbootBuildingblocks.exceptions.OrderNotFoundException;
 import com.meli.SpringbootBuildingblocks.exceptions.UserNotFoundException;
-import com.meli.SpringbootBuildingblocks.services.OrderService;
-import java.util.List;
-import javax.validation.Valid;
+import com.meli.SpringbootBuildingblocks.services.OrderHateoasService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,17 +16,17 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/hateoas/users")
 public class OrderHateoasController {
 
-  private final OrderService orderService;
+  private final OrderHateoasService orderHateoasService;
 
   @Autowired
-  public OrderHateoasController(OrderService orderService) {
-    this.orderService = orderService;
+  public OrderHateoasController(OrderHateoasService orderHateoasService) {
+    this.orderHateoasService = orderHateoasService;
   }
 
   @GetMapping("/{userid}/orders")
-  public List<Order> getAllOrders(@PathVariable Long userid) {
+  public CollectionModel<Order> getAllOrders(@PathVariable Long userid) {
     try {
-      return orderService.getAllUsers(userid);
+      return orderHateoasService.getAllOrders(userid);
     } catch (UserNotFoundException e) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
     }

@@ -25,8 +25,8 @@ public class OrderService {
   }
 
 
-  public List<Order> getAllUsers(Long userid) throws UserNotFoundException {
-        Optional<User> user = userRepository.findById(userid);
+  public List<Order> getAllOrders(Long userid) throws UserNotFoundException {
+    Optional<User> user = userRepository.findById(userid);
     if (!user.isPresent()) {
       throw new UserNotFoundException("User not found");
     }

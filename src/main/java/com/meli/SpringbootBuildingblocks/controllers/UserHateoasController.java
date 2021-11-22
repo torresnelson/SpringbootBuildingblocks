@@ -3,10 +3,9 @@ package com.meli.SpringbootBuildingblocks.controllers;
 import com.meli.SpringbootBuildingblocks.entities.User;
 import com.meli.SpringbootBuildingblocks.exceptions.UserNotFoundException;
 import com.meli.SpringbootBuildingblocks.services.UserHateoasService;
-import com.meli.SpringbootBuildingblocks.services.UserService;
-import java.util.List;
 import javax.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 @Validated
 public class UserHateoasController {
 
-  private UserHateoasService userHateoasService;
+  private final UserHateoasService userHateoasService;
 
   @Autowired
   public UserHateoasController(UserHateoasService userHateoasService) {
@@ -38,8 +37,12 @@ public class UserHateoasController {
     }
   }
 
-//  @GetMapping("")
-//  public List<User> getAllUsers() {
-//    return userHateoasService.getAllUsers();
-//  }
+  @GetMapping("")
+  public CollectionModel<User> getAllUsers() {
+    try {
+      return userHateoasService.getAllUsers();
+    } catch (UserNotFoundException e) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+    }
+  }
 }

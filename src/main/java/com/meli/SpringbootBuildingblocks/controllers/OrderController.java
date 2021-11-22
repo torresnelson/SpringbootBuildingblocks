@@ -1,15 +1,10 @@
 package com.meli.SpringbootBuildingblocks.controllers;
 
 import com.meli.SpringbootBuildingblocks.entities.Order;
-import com.meli.SpringbootBuildingblocks.entities.User;
 import com.meli.SpringbootBuildingblocks.exceptions.OrderNotFoundException;
 import com.meli.SpringbootBuildingblocks.exceptions.UserNotFoundException;
-import com.meli.SpringbootBuildingblocks.repositories.OrderRepository;
-import com.meli.SpringbootBuildingblocks.repositories.UserRepository;
 import com.meli.SpringbootBuildingblocks.services.OrderService;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,13 +21,17 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/users")
 public class OrderController {
 
+  private final OrderService orderService;
+
   @Autowired
-  private OrderService orderService;
+  public OrderController(OrderService orderService) {
+    this.orderService = orderService;
+  }
 
   @GetMapping("/{userid}/orders")
   public List<Order> getAllOrders(@PathVariable Long userid) {
     try {
-      return orderService.getAllUsers(userid);
+      return orderService.getAllOrders(userid);
     } catch (UserNotFoundException e) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
     }

@@ -1,30 +1,27 @@
 package com.meli.SpringbootBuildingblocks.entities;
 
-import java.util.List;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
-//Entity
-// and
 @Getter
 @Setter
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends RepresentationModel<User> {
 
   @Id
   @GeneratedValue
-  private Long id;
+  private Long userId;
 
   @NotEmpty(message = "Username is Mandatory field, please provide username")
   @Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
@@ -54,9 +51,14 @@ public class User {
   }
 
   // Fields Constructor
-  public User(Long id, String username, String firstname, String lastname, String email,
-      String role, String ssn) {
-    this.id = id;
+  public User(Long userId,
+      String username,
+      String firstname,
+      String lastname,
+      String email,
+      String role,
+      String ssn) {
+    this.userId = userId;
     this.username = username;
     this.firstname = firstname;
     this.lastname = lastname;
@@ -68,9 +70,13 @@ public class User {
   // To String
   @Override
   public String toString() {
-    return "User [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname="
-        + lastname
-        + ", email=" + email + ", role=" + role + ", ssn=" + ssn + "]";
+    return "User [id=" + userId
+        + ", username=" + username
+        + ", firstname=" + firstname
+        + ", lastname=" + lastname
+        + ", email=" + email
+        + ", role=" + role
+        + ", ssn=" + ssn + "]";
   }
 
 }

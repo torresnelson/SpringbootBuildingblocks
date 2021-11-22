@@ -4,19 +4,22 @@ import com.meli.SpringbootBuildingblocks.entities.User;
 import com.meli.SpringbootBuildingblocks.exceptions.UserAlreadyExistsException;
 import com.meli.SpringbootBuildingblocks.exceptions.UserNotFoundException;
 import com.meli.SpringbootBuildingblocks.repositories.UserRepository;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 public class UserService {
 
+  private final UserRepository userRepository;
+
   @Autowired
-  private UserRepository userRepository;
+  public UserService(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
 
   public List<User> getAllUsers() {
     return userRepository.findAll();
@@ -43,7 +46,7 @@ public class UserService {
     if (!optionalUser.isPresent()) {
       throw new UserNotFoundException("User Not found in repository, provide the correct user id");
     }
-    user.setId(id);
+    user.setUserId(id);
     return userRepository.save(user);
   }
 

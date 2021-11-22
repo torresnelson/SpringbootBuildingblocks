@@ -24,8 +24,12 @@ import java.util.Optional;
 @RequestMapping("/users")
 public class UserController {
 
+  private final UserService userService;
+
   @Autowired
-  private UserService userService;
+  public UserController(UserService userService) {
+    this.userService = userService;
+  }
 
   @GetMapping("")
   public List<User> getAllUsers() {
@@ -38,7 +42,7 @@ public class UserController {
     try {
       userService.createUser(user);
       HttpHeaders headers = new HttpHeaders();
-      headers.setLocation(builder.path("/{id}").buildAndExpand(user.getId()).toUri());
+      headers.setLocation(builder.path("/{id}").buildAndExpand(user.getUserId()).toUri());
       return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     } catch (UserAlreadyExistsException e) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());

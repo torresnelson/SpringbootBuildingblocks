@@ -15,7 +15,8 @@ public class UserDetails {
 
   @Override
   public String toString() {
-    return "UserDetails [firstname = " + firstname + ", lastname = " + lastname + ", City = " + city
-        + "]";
+    return "UserDetails [firstname = " + firstname
+        + ", lastname = " + lastname
+        + ", City = " + city + "]";
   }
 }

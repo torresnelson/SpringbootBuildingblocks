@@ -56,7 +56,9 @@ public class UserHateoasService {
       user.add(orderLink);
 
     }
-    return CollectionModel.of(allUsers);
+    //Self link for gettAllUsers
+    Link link = WebMvcLinkBuilder.linkTo(this.getClass()).withSelfRel();
+    return CollectionModel.of(allUsers, link);
 
   }
 

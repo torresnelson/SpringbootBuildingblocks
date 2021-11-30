@@ -31,7 +31,7 @@ public class Order extends RepresentationModel<Order> {
   private String orderdescription;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JsonIgnore
+  //@JsonIgnore
   private User user;
 
 }

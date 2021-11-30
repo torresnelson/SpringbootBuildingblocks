@@ -1,6 +1,7 @@
 package com.meli.SpringbootBuildingblocks.entities;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.JsonFilter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import org.springframework.hateoas.RepresentationModel;
 @Setter
 @Entity
 @Table(name = "user")
+//@JsonFilter("userFilter")
 public class User extends RepresentationModel<User> {
 
   @Id

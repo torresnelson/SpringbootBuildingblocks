@@ -50,9 +50,9 @@ public class UserController {
   }
 
   @GetMapping("/{id}")
-  public Optional<User> getUserById(@PathVariable("id") @Min(1) Long id) {
+  public ResponseEntity<User> getUserById(@PathVariable("id") @Min(1) Long id) {
     try {
-      return userService.getUserById(id);
+      return new ResponseEntity<>(userService.getUserById(id).get(), HttpStatus.OK);
     } catch (UserNotFoundException e) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
     }

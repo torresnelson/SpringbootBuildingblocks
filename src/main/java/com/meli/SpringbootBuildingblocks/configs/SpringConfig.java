@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -80,6 +81,11 @@ public class SpringConfig implements WebMvcConfigurer {
     LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
     lci.setParamName("lang");
     return lci;
+  }
+
+  @Bean
+  public ModelMapper modelMapper() {
+    return new ModelMapper();
   }
 
   @Override

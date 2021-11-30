@@ -1,6 +1,6 @@
 package com.meli.SpringbootBuildingblocks.controllers;
 
-import com.meli.SpringbootBuildingblocks.dto.UserDetails;
+import com.meli.SpringbootBuildingblocks.dtos.UserDetails;
 import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -14,7 +14,6 @@ public class HelloWorldController {
 
   @Autowired
   private final ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-
 
   @GetMapping("/helloworld")
   public String helloWorld() {

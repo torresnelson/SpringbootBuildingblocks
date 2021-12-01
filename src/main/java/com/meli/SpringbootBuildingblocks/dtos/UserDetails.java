@@ -1,4 +1,4 @@
-package com.meli.SpringbootBuildingblocks.dto;
+package com.meli.SpringbootBuildingblocks.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

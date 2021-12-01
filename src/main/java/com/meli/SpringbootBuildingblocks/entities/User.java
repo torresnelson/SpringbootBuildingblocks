@@ -1,7 +1,6 @@
 package com.meli.SpringbootBuildingblocks.entities;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.annotation.JsonFilter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

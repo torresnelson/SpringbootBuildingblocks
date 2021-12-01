@@ -1,6 +1,5 @@
 package com.meli.SpringbootBuildingblocks.dtos;
 
-
 import lombok.Getter;
 import lombok.Setter;
 

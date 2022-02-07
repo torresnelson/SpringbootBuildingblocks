@@ -1,4 +1,7 @@
-/*-- Verity colum and insert queries
+/*
+use blocksdb;
+
+-- Verity colum and insert queries
 insert into user
 values (101, 'nelson.torres@mercadolibre.com', 'Nelson', 'Torres', 'admin', 'ssn101', 'neltorres');
 insert into user
@@ -6,7 +9,7 @@ values (102, 'terrence.malick@gmail.com', 'Terrence', 'Malick', 'buyer', 'ssn102
 insert into user
 values (103, 'stanley.kubrick@hotmail.com', 'Stanley', 'kubrick', 'buyer', 'ssn103', 'skubrick');
 insert into user
-values (104, 'julia.torres@yahoo.com', 'Julia', 'Torres', 'admin', 'ssn104', 'jtorres');
+values (104, 'julian.torres@yahoo.com', 'Julian', 'Torres', 'admin', 'ssn104', 'jtorres');
 
 -- Verify columns and insert queries
 insert into orders

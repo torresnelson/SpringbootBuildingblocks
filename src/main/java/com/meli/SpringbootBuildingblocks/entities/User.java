@@ -10,12 +10,18 @@ import javax.persistence.Table;
 import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.hateoas.RepresentationModel;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity
 @Table(name = "user")
 //@JsonFilter("userFilter")
@@ -55,38 +61,5 @@ public class User extends RepresentationModel<User> {
   @OneToMany(mappedBy = "user")
   @JsonView(Views.Internal.class)
   private List<Order> orders;
-
-  // No Argument Constructor
-  public User() {
-  }
-
-  // Fields Constructor
-  public User(Long userId,
-      String username,
-      String firstname,
-      String lastname,
-      String email,
-      String role,
-      String ssn) {
-    this.userId = userId;
-    this.username = username;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.email = email;
-    this.role = role;
-    this.ssn = ssn;
-  }
-
-  // To String
-  @Override
-  public String toString() {
-    return "User [id=" + userId
-        + ", username=" + username
-        + ", firstname=" + firstname
-        + ", lastname=" + lastname
-        + ", email=" + email
-        + ", role=" + role
-        + ", ssn=" + ssn + "]";
-  }
 
 }

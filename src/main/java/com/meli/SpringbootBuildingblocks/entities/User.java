@@ -22,7 +22,7 @@ import org.springframework.hateoas.RepresentationModel;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Entity
+@Entity(name = "User")
 @Table(name = "user")
 //@JsonFilter("userFilter")
 public class User extends RepresentationModel<User> {
@@ -61,5 +61,8 @@ public class User extends RepresentationModel<User> {
   @OneToMany(mappedBy = "user")
   @JsonView(Views.Internal.class)
   private List<Order> orders;
+
+  @Column(name = "ADDRESS")
+  private String address;
 
 }

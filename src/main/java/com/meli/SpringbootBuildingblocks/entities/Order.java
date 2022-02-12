@@ -20,7 +20,7 @@ import org.springframework.hateoas.RepresentationModel;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Entity
+@Entity(name = "Order")
 @Table(name = "orders")
 public class Order extends RepresentationModel<Order> {
 
@@ -28,10 +28,10 @@ public class Order extends RepresentationModel<Order> {
   @GeneratedValue
   private Long orderId;
 
-  private String orderdescription;
+  private String orderDescription;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  //@JsonIgnore
+  @JsonIgnore
   private User user;
 
 }

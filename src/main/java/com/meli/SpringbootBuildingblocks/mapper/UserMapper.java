@@ -16,6 +16,6 @@ public interface UserMapper {
 
 
   //List<User> to List<UserMapStructDTO>
-  List<UserMapStructDTO> userstoUserMapStructDTOs(List<User> users);
+  List<UserMapStructDTO> usersToUserMapStructDTOs(List<User> users);
 
 }

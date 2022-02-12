@@ -1,25 +1,12 @@
 # Default properties file
 
 spring:
+  profiles:
+    active: ${SCOPE_SUFFIX} # Comma-separated list of active profiles. Can be overridden by a command line switch.
   resources:
     add-mappings: false # Whether to enable default resource handling.
   mvc:
     throw-exception-if-no-handler-found: true # Whether a "NoHandlerFoundException" should be thrown if no Handler was found to process a request.
-  datasource:
-    url: jdbc:h2:mem:blocksdb
-    username: sa
-    password: sa
-    driverClassName: org.h2.Driver
-
-  jpa:
-    show-sql: true
-    database-platform: org.hibernate.dialect.H2Dialect
-
-  h2:
-    console:
-      enabled: true
-  messages:
-    basename: messages
 
 server:
   error:

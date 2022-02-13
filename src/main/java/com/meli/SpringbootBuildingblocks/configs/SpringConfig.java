@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -22,17 +23,26 @@ import org.springframework.hateoas.client.LinkDiscoverers;
 import org.springframework.hateoas.mediatype.collectionjson.CollectionJsonLinkDiscoverer;
 import org.springframework.plugin.core.SimplePluginRegistry;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Main App configuration.
  */
 @ComponentScan("com.meli.SpringbootBuildingblocks")
 @Configuration
-@EnableAutoConfiguration
+@EnableSwagger2
 public class SpringConfig implements WebMvcConfigurer {
 
   private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
@@ -49,6 +59,27 @@ public class SpringConfig implements WebMvcConfigurer {
     sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
     objectMapper.setDateFormat(sdf);
     return objectMapper;
+  }
+
+  @Bean
+  public Docket api() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .select()
+        .apis(RequestHandlerSelectors.any())
+        .paths(PathSelectors.any())
+        .build()
+        .apiInfo(apiInfo())
+        .pathMapping("/");
+  }
+
+  private ApiInfo apiInfo() {
+    return new ApiInfo(
+        "BuildingBlocks REST API",
+        "Custom implementation of a rest API for user management.",
+        "1.0",
+        "Terms of service",
+        new Contact("Nelson Torres", "www.example.com", "myeaddress@company.com"),
+        "License of API", "API license URL", Collections.emptyList());
   }
 
   @Bean

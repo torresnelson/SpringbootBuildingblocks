@@ -25,7 +25,7 @@ public class UserMapStructController {
 
   @GetMapping
   public List<UserMapStructDTO> getAllUserDtos() {
-    return userMapper.usersToUserMapStructDTOs(userRepository.findAll());
+    return userMapper.userstoUserMapStructDTOs(userRepository.findAll());
   }
 
 }

@@ -1,5 +1,7 @@
 package com.meli.SpringbootBuildingblocks.dtos;
 
+import com.meli.SpringbootBuildingblocks.entities.Order;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,12 +13,24 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UserMapStructDTO {
+public class UserDtoV2 {
 
   private Long userId;
 
   private String username;
 
+  private String firstname;
+
+  private String lastname;
+
   private String email;
+
+  private String role;
+
+  private String ssn;
+
+  private List<Order> orders;
+
+  private String address;
 
 }

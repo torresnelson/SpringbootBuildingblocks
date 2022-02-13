@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -27,14 +26,12 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Main App configuration.
  */
 @ComponentScan("com.meli.SpringbootBuildingblocks")
 @Configuration
-@EnableSwagger2
 @EnableAutoConfiguration
 public class SpringConfig implements WebMvcConfigurer {
 

@@ -1,6 +1,6 @@
 package com.meli.SpringbootBuildingblocks.controllers;
 
-import com.meli.SpringbootBuildingblocks.dtos.UserModelMapperDto;
+import com.meli.SpringbootBuildingblocks.dtos.UserModelMapperDTO;
 import com.meli.SpringbootBuildingblocks.entities.User;
 import com.meli.SpringbootBuildingblocks.exceptions.UserNotFoundException;
 import com.meli.SpringbootBuildingblocks.services.UserService;
@@ -30,7 +30,7 @@ public class UserModelMapperController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<UserModelMapperDto> getUserById(@PathVariable("id") @Min(1) Long id) throws UserNotFoundException {
+  public ResponseEntity<UserModelMapperDTO> getUserById(@PathVariable("id") @Min(1) Long id) throws UserNotFoundException {
 
     Optional<User> userOptional = userService.getUserById(id);
     if (!userOptional.isPresent()) {
@@ -38,7 +38,7 @@ public class UserModelMapperController {
     }
 
     User user = userOptional.get();
-    UserModelMapperDto userModelMapperDTO = modelMapper.map(user, UserModelMapperDto.class);
+    UserModelMapperDTO userModelMapperDTO = modelMapper.map(user, UserModelMapperDTO.class);
 
     return new ResponseEntity<>(userModelMapperDTO, HttpStatus.OK);
   }

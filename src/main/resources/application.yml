@@ -7,6 +7,28 @@ spring:
     add-mappings: false # Whether to enable default resource handling.
   mvc:
     throw-exception-if-no-handler-found: true # Whether a "NoHandlerFoundException" should be thrown if no Handler was found to process a request.
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:setup.sql
+      continue-on-error: true
+db:
+  host: localhost:3306
+  username: admin
+  password: admin
+  name: blocksdb
+  url: jdbc:mysql://%s/%s?useSSL=false&useUnicode=yes&characterEncoding=UTF-8
+  driver:
+    name: com.mysql.cj.jdbc.Driver
 
 server:
   error:

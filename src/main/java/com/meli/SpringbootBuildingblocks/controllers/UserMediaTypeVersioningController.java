@@ -30,7 +30,7 @@ public class UserMediaTypeVersioningController {
     this.modelMapper = modelMapper;
   }
 
-  //Request parameter based versioning V1
+  //Request media type based versioning V1
   @GetMapping(value = "/{id}", produces = "application/springboot.building.blocks.app-v1+json")
   public ResponseEntity<UserDtoV1> getUserByIdVersion1(@PathVariable("id") @Min(1) Long id) throws UserNotFoundException {
 

@@ -1,5 +1,4 @@
 # Default properties file
-
 spring:
   profiles:
     active: ${SCOPE_SUFFIX} # Comma-separated list of active profiles. Can be overridden by a command line switch.
@@ -54,9 +53,6 @@ app:
   version: @project.version@
 
 management:
-  health:
-    db:
-      enabled: true
   endpoint:
     health:
       show-details: always
@@ -67,6 +63,15 @@ management:
       exposure:
         include: "*"
       base-path: "/actuator"
+  health:
+    db:
+      enabled: true
   info:
     env:
       enabled: true
+  metrics:
+    export:
+      simple:
+        enabled: false
+      jmx:
+        enabled: true

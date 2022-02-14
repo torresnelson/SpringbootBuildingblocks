@@ -21,6 +21,16 @@ spring:
       mode: always
       data-locations: classpath:setup.sql
       continue-on-error: true
+  boot:
+    admin:
+      client:
+        url: http://localhost:8081
+        instance:
+          management-url: "http://localhost:8080/actuator"
+          health-url: "http://localhost:8080/actuator/health"
+          service-url: "http://localhost:8080"
+          management-base-url: "http://localhost:8080/actuator"
+
 db:
   host: localhost:3306
   username: admin
@@ -42,3 +52,21 @@ app:
   title: springbootbuildingblocks
   description: @project.description@
   version: @project.version@
+
+management:
+  health:
+    db:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+    httptrace:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: "/actuator"
+  info:
+    env:
+      enabled: true

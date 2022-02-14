@@ -61,6 +61,7 @@ public class SpringConfig implements WebMvcConfigurer {
     return objectMapper;
   }
 
+//  Swagger documentation
   @Bean
   public Docket api() {
     return new Docket(DocumentationType.SWAGGER_2)

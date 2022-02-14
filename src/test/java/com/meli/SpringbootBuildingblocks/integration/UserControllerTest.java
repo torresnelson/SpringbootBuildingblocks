@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meli.SpringbootBuildingblocks.utils.UserTestUtils;
 import lombok.SneakyThrows;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.junit.jupiter.api.BeforeAll;
@@ -49,6 +50,7 @@ public class UserControllerTest {
 
   @SneakyThrows
   @Test
+  @Disabled
   void createUserSuccessfullyTest() {
     String jsonPayload = mapper.writeValueAsString(UserTestUtils.generateUser());
     this.mockMvc.perform(post(USER_ENDPOINT)
@@ -59,6 +61,7 @@ public class UserControllerTest {
 
   @SneakyThrows
   @Test
+  @Disabled
   void listAllUserTest() {
     for (int i = 0; i < ENTRY_COUNT; i++) {
       this.mockMvc.perform(post(USER_ENDPOINT)

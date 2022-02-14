@@ -67,6 +67,7 @@ public class UserController {
     }
   }
 
+  @ApiOperation(value = "Update user by id")
   @PutMapping("/{id}")
   public User updateUserById(@PathVariable("id") Long id, @RequestBody User user) {
     try {
@@ -76,11 +77,13 @@ public class UserController {
     }
   }
 
+  @ApiOperation(value = "Delete user by id")
   @DeleteMapping("/{id}")
   public void deleteUserById(@PathVariable("id") Long id) {
     userService.deleteUserById(id);
   }
 
+  @ApiOperation(value = "Get user by username")
   @GetMapping("/by-username/{username}")
   public User getUserByUsername(@PathVariable("username") String username)
       throws UsernameNotFoundException {

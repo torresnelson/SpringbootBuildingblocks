@@ -1,6 +1,5 @@
 package com.meli.SpringbootBuildingblocks.services;
 
-import com.meli.SpringbootBuildingblocks.controllers.OrderHateoasController;
 import com.meli.SpringbootBuildingblocks.entities.Order;
 import com.meli.SpringbootBuildingblocks.entities.User;
 import com.meli.SpringbootBuildingblocks.exceptions.UserNotFoundException;
